@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home_styles.css" />
+   <!-- get the rubik font via google scholar-->
+   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+   <a id="next" href="catch-item.html"><img id="next-img" src="./images/next.png"></a>
+   <div id="countdown"></div>
+   <div id="followElement"></div>
+   <div id="lightswitch-container">
+      <div id="frame"></div>
+      <button id="switch"></button>
+      <p id="on-off">off</p>
+   </div>
+   <div id="lightswitch-container-2">
+      <div id="frame"></div>
+      <button id="switch-2"></button>
+      <p id="on-off-2">off</p>
+   </div>
+   <p id="spinner1">*</p>
+   <p id="spinner2">*</p>
+   <p id="spinner3">*</p>
+   <p id="spinner4">*</p>
+   <p id="spinner5">*</p>
+   <p id="spinner6">*</p>
+   <p id="spinner7">*</p>
+   <p id="spinner8">*</p>
+   <p id="spinner9">*</p>
+   <p id="spinner10">*</p>
+   <img id="cursor"></img>
+   <script>
+   document.addEventListener("DOMContentLoaded", function () {
+      var switchButton = document.getElementById("switch");
+      var onOffText = document.getElementById("on-off");
+      var switchButton2 = document.getElementById("switch-2");
+      var onOffText2 = document.getElementById("on-off-2");
+      var onSwitch1 = false;
+      var onSwitch2 = false;
+
+
+      var countdownElement = document.getElementById("countdown");
+      var totalSeconds =  20;
+
+      var countdownInterval = setInterval(function () {
+         var minutes = Math.floor(totalSeconds / 60);
+         var seconds = totalSeconds % 60;
+
+         countdownElement.textContent = "Turn on the two lightswitches in " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds; 
+
+         totalSeconds--;
+
+         if (totalSeconds < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.textContent = "Try again! Reloading in 5 seconds...";
+            // wait 5 seconds before reloading the page
+            setTimeout(function () {
+               window.location.reload();
+            }, 5000);
+         }
+      
+
+        switchButton.addEventListener("click", function () {
+           // check if the switch is on or off
+         if (onOffText.innerHTML === "on") {
+              // if it's on, turn it off
+              gsap.to(switchButton, { top: "50%", duration: 0.5 });
+              gsap.to(onOffText, { top: "25%", duration: 0.5 });
+              onOffText.innerHTML = "off";
+              onSwitch1 = false;
+              return;
+           }
+           // if it's off, turn it on
+         else if (onOffText.innerHTML === "off") {
+              gsap.to(switchButton, { top: "25%", duration: 0.5 });
+              gsap.to(onOffText, { top: "50%", duration: 0.5 });
+              onOffText.innerHTML = "on";
+               onSwitch1 = true;
+              return;
+           }
+         });
+
+         switchButton2.addEventListener("click", function () {
+             // check if the switch is on or off
+             if (onOffText2.innerHTML === "on") {
+               // if it's on, turn it off
+               gsap.to(switchButton2, { top: "50%", duration: 0.5 });
+               gsap.to(onOffText2, { top: "25%", duration: 0.5 });
+               onOffText2.innerHTML = "off";
+               onSwitch2 = false;
+               return;
+             }
+             // if it's off, turn it on
+             else if (onOffText2.innerHTML === "off") {
+               gsap.to(switchButton2, { top: "25%", duration: 0.5 });
+               gsap.to(onOffText2, { top: "50%", duration: 0.5 });
+               onOffText2.innerHTML = "on";
+               onSwitch2 = true;
+               return;
+             }
+         });
+
+         if (onSwitch1 && onSwitch2) {
+            clearInterval(countdownInterval);
+            // set the background color to white
+            document.body.style.backgroundColor = "rgb(244, 244, 223)";
+            // reveal the stars
+            var stars = document.querySelectorAll("p");
+            stars.forEach(function (star) {
+               star.style.display = "block";
+            });
+            // set the lightswitches to display none
+            var lightswitches = document.querySelectorAll("#lightswitch-container, #lightswitch-container-2");
+            lightswitches.forEach(function (lightswitch) {
+               lightswitch.style.display = "none";
+            });
+            // set FollowElement to background color black
+            var followElement = document.getElementById("followElement");
+            followElement.style.backgroundColor = "black";
+
+            // animate the stars to spin until the user clicks on them
+            var spinAnimation = gsap.to(stars, { rotation: 360, duration: 1, repeat: -1, ease: "none" });
+            
+            var starsClicked = 0;
+            totalSeconds = 20;
+            starsCountdown = setInterval(function () {
+               
+               var minutes = Math.floor(totalSeconds / 60);
+               var seconds = totalSeconds % 60;
+              
+
+               countdownElement.textContent = "Click on ten spinning stars in " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds; 
+
+               totalSeconds--;
+
+               if (totalSeconds < 0) {
+                        clearInterval(starsCountdown);
+                        countdownElement.textContent = "Time's up! You got " + starsClicked + " stars. Reloading in 5 seconds...";
+                        // wait 5 seconds before reloading the page
+                        setTimeout(function () {
+                           window.location.reload();
+                        }, 5000);
+               }
+            }, 1000); 
+         }
+
+         stars.forEach(function (star) {
+            star.addEventListener("click", function () {
+               // stop the spin animation
+               //spinAnimation.pause();
+               // hide the star
+               star.style.display = "none";
+               starsClicked++;
+               
+               if (starsClicked === 10) {
+                  clearInterval(starsCountdown);
+                  countdownElement.textContent = "You got all the stars! Score: " + starsClicked + " Reloading in 5 seconds...";
+                  // wait 5 seconds before reloading the page
+                  setTimeout(function () {
+                     window.location.reload();
+                  }, 5000);
+               }
+            });
+         });
+      }, 1000);
+   });
+   </script>
+   <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var followElement = document.getElementById("followElement");
+  
+        document.addEventListener("mousemove", function (event) {
+          // Update the position of the element to follow the cursor and center it
+           followElement.style.left = event.pageX - 70 + "px";
+           followElement.style.top = event.pageY - 70 + "px";
+        });
+      });
+    </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TimelineMax.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+         var lightSwitchContainer = document.getElementById("lightswitch-container");
+         var lightSwitchContainer2 = document.getElementById("lightswitch-container-2");
+         var spinner1 = document.getElementById("spinner1");
+         var spinner2 = document.getElementById("spinner2");
+         var spinner3 = document.getElementById("spinner3");
+         var spinner4 = document.getElementById("spinner4");
+         var spinner5 = document.getElementById("spinner5");
+         var spinner6 = document.getElementById("spinner6");
+         var spinner7 = document.getElementById("spinner7");
+         var spinner8 = document.getElementById("spinner8");
+         var spinner9 = document.getElementById("spinner9");
+         var spinner10 = document.getElementById("spinner10");
+    
+          // Function to generate a random position
+         function getRandomPosition(offsetWidth, offsetHeight) {
+            var containerWidth = window.innerWidth - offsetWidth;
+            var containerHeight = window.innerHeight - offsetHeight ;
+            console.log(containerWidth, containerHeight);
+    
+            // generate random numbers between 0 and 1 and multiply by the container width and height
+            var randomLeft = Math.random() * containerWidth - offsetWidth;
+            var randomTop = Math.random() * containerHeight - offsetHeight;
+            // prevent left and right from going below 0
+            randomLeft = Math.max(randomLeft, 0);
+            randomTop = Math.max(randomTop, 0);
+            console.log(randomLeft, randomTop);
+
+            return { left: randomLeft, top: randomTop };
+         }
+    
+          // Set initial random position on page load
+         var lightSwitch1Position = getRandomPosition(lightSwitchContainer.offsetWidth, lightSwitchContainer.offsetHeight);
+         lightSwitchContainer.style.left = lightSwitch1Position.left + "px";
+         lightSwitchContainer.style.top = lightSwitch1Position.top + "px";
+
+         lightSwitch2Postion = getRandomPosition(lightSwitchContainer2.offsetWidth, lightSwitchContainer2.offsetHeight);
+         lightSwitchContainer2.style.left = lightSwitch2Postion.left + "px";
+         lightSwitchContainer2.style.top = lightSwitch2Postion.top + "px"; 
+
+         var spinner1Position = getRandomPosition(spinner1.offsetWidth, spinner1.offsetHeight);
+         spinner1.style.left = spinner1Position.left + "px";
+         spinner1.style.top = spinner1Position.top + "px";
+
+         var spinner2Position = getRandomPosition(spinner2.offsetWidth, spinner2.offsetHeight);
+         spinner2.style.left = spinner2Position.left + "px";
+         spinner2.style.top = spinner2Position.top + "px";
+
+         var spinner3Position = getRandomPosition(spinner3.offsetWidth, spinner3.offsetHeight);
+         spinner3.style.left = spinner3Position.left + "px";
+         spinner3.style.top = spinner3Position.top + "px";
+
+         var spinner4Position = getRandomPosition(spinner4.offsetWidth, spinner4.offsetHeight);
+         spinner4.style.left = spinner4Position.left + "px";
+         spinner4.style.top = spinner4Position.top + "px";
+
+         var spinner5Position = getRandomPosition(spinner5.offsetWidth, spinner5.offsetHeight);
+         spinner5.style.left = spinner5Position.left + "px";
+         spinner5.style.top = spinner5Position.top + "px";
+
+         var spinner6Position = getRandomPosition(spinner6.offsetWidth, spinner6.offsetHeight);
+         spinner6.style.left = spinner6Position.left + "px";
+         spinner6.style.top = spinner6Position.top + "px";
+
+         var spinner7Position = getRandomPosition(spinner7.offsetWidth, spinner7.offsetHeight);
+         spinner7.style.left = spinner7Position.left + "px";
+         spinner7.style.top = spinner7Position.top + "px";
+
+         var spinner8Position = getRandomPosition(spinner8.offsetWidth, spinner8.offsetHeight);
+         spinner8.style.left = spinner8Position.left + "px";
+         spinner8.style.top = spinner8Position.top + "px";
+
+         var spinner9Position = getRandomPosition(spinner9.offsetWidth, spinner9.offsetHeight);
+         spinner9.style.left = spinner9Position.left + "px";
+         spinner9.style.top = spinner9Position.top + "px";
+
+         var spinner10Position = getRandomPosition(spinner10.offsetWidth, spinner10.offsetHeight);
+         spinner10.style.left = spinner10Position.left + "px";
+         spinner10.style.top = spinner10Position.top + "px";
+      });
+     </script>  
+
+</body>
+</html>
