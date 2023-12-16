@@ -45,6 +45,7 @@
       width: 100vw;
       height: 100vh;
       background-color: black;
+      background-position: cover;
     }
 
     #ball1 {
@@ -137,18 +138,17 @@
       <div id="ball4"></div>
       <div id="ball5"></div>
   </div>
-<nav>
+<nav id="controls">
    <button id="mode1">click ball</button>
    <button id="mode2">avoid</button>
    <button id="mode3">avoid-and-click</button>
    <button id="mode4">Mode 4</button>
 </nav>
-<img id="normal-background" src="./images/normal-background.png" alt=""></img>
-<img id="avoid-background" src="./images/avoid-background.png" alt=""></img>
-<img id="avoid-and-click-background" src="./images/avoid-and-click-background.png" alt=""></img>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TimelineMax.min.js"></script>
 
 <script>
-
 class Ball {
   constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size) {
     this.gameContainer = gameContainer;
@@ -223,11 +223,10 @@ var ball2 = document.getElementById("ball2");
 var ball3 = document.getElementById("ball3");
 var ball4 = document.getElementById("ball4");
 var ball5 = document.getElementById("ball5");
+var controls = document.getElementById("controls");
 
 function gameMode(mode) {
    if (mode == "normal") {
-
-      // set background image for game-container to 
 
       ball_normal = new Ball(gameContainer, ball1, 5, 5, 70, true);
       ball_normal.start();
@@ -238,6 +237,7 @@ function gameMode(mode) {
             alert("Congratulations! You've won!");
             ball_normal.resetGame();
             mode1.style.color = "white";
+            controls.style.display = "flex";
          }, 500);
          this.removeEventListener("click", ball1Click);
       });
@@ -288,7 +288,7 @@ function gameMode(mode) {
             ball4_avoid.resetGame();
             ball5_avoid.resetGame();
             mode2.style.color = "white";
-
+            controls.style.display = "flex";
          }, 500);
       }
    }
@@ -317,6 +317,7 @@ function gameMode(mode) {
             ball4_avoidClick.resetGame();
             ball5_avoidClick.resetGame();
             mode3.style.color = "white";
+            controls.style.display = "flex";
             alert("Congratulations! You've won!");
          }, 500);
          this.removeEventListener("click", ball1Click);
@@ -351,6 +352,7 @@ function gameMode(mode) {
             ball4_avoidClick.resetGame();
             ball5_avoidClick.resetGame();
             mode3.style.color = "white";
+            controls.style.display = "flex";
             alert("Game Over!");
          }, 500);
       }
@@ -370,10 +372,21 @@ if (this.style.color == "black") {
    // reset the Ball class  //
    ball_normal.resetGame();
    ball1.style.display = "none";
+   gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
+      gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
+      gsap.to("#game-container", {duration: 1, opacity: 1});
+   }});
    return;
 } else {
    this.style.color = "black";
+
+   gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
+      gsap.to("#game-container", {duration: 1, backgroundImage: "url('./images/normal-background.png')"});
+      gsap.to("#game-container", {duration: 1, opacity: 1});
+   }});
+   controls.style.display = "none";
    gameMode("normal");
+   
 }
 });
 
@@ -395,6 +408,8 @@ mode2.addEventListener("click", function() {
       return;
    } else {
       this.style.color = "black";
+
+      controls.style.display = "none";
       gameMode("avoid");
    }
 });
@@ -416,6 +431,7 @@ document.getElementById("mode3").addEventListener("click", function() {
       return;
    } else {
       this.style.color = "black";
+      controls.style.display = "none";
       gameMode("avoid-and-click");
    }
 });
