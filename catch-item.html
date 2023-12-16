@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      width: 100%;
+    }
+
+      nav {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         width: 45%;
+         height: 7%;
+         margin-left: -22.5%;
+         margin-top: -3.5%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         gap: 2%;
+         flex-wrap: wrap;
+      }
+
+      nav button {
+         margin: 0;
+         padding: 10px 20px;
+         width:23%;
+         height: 100%;
+         border: none;
+         border-radius: 5px;
+         background-color: #3498db;
+         color: #fff;
+         font-size: 16px;
+         cursor: pointer;
+         min-width: 120px;
+      }
+
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+    }
+
+    #ball1 {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
+
+      #ball2 {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         background-color: #3498db;
+         border-radius: 50%;
+         cursor: pointer;
+         display: none;
+      }
+
+      #ball3 {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         background-color: #3498db;
+         border-radius: 50%;
+         cursor: pointer;
+         display: none;
+      }
+
+      #ball4 {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         background-color: #3498db;
+         border-radius: 50%;
+         cursor: pointer;
+         display: none;
+      }
+
+      #ball5 {
+         position: absolute;
+         width: 50px;
+         height: 50px;
+         background-color: #3498db;
+         border-radius: 50%;
+         cursor: pointer;
+         display: none;
+      }
+
+      #prev {
+         position: absolute;
+         top: 0%;
+         left: 0%;
+         z-index: 5;
+         margin: 2%;
+         margin-top: 1%;
+         transform: rotate(180deg);
+      }
+
+     #next-img {
+         width: 50px;
+         height: 50px;
+         margin: 0;
+         padding: 0;
+      }
+
+      #next {
+         position: absolute;
+         top: 0%;
+         right: 0%;
+         z-index: 5;
+         margin: 2%;
+         margin-top: 1%;
+      }
+
+
+
+  </style>
+</head>
+<body>
+   <a id="next" href="index.html"><img id="next-img" src="./images/next.png"></a>
+   <a id="prev" href="index.html"><img id="next-img" src="./images/next.png"></a>
+   <div id="game-container">
+      <div id="ball1"></div>
+      <div id="ball2"></div>
+      <div id="ball3"></div>
+      <div id="ball4"></div>
+      <div id="ball5"></div>
+  </div>
+<nav>
+   <button id="mode1">click ball</button>
+   <button id="mode2">avoid</button>
+   <button id="mode3">avoid-and-click</button>
+   <button id="mode4">Mode 4</button>
+</nav>
+<img id="normal-background" src="./images/normal-background.png" alt=""></img>
+<img id="avoid-background" src="./images/avoid-background.png" alt=""></img>
+<img id="avoid-and-click-background" src="./images/avoid-and-click-background.png" alt=""></img>
+
+<script>
+
+class Ball {
+  constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size) {
+    this.gameContainer = gameContainer;
+    this.ballElement = ballElement;
+    this.ballSpeedX = ballSpeedX;
+    this.ballSpeedY = ballSpeedY;
+    this.size = size; // px
+    this.interval = null;
+    this.gameActive = false;
+    this.resetGame();
+    this.navButtons = document.querySelectorAll("nav button");
+  }
+   setSize() {
+      this.ballElement.style.height = this.size + "px";
+      this.ballElement.style.width = this.size + "px";
+   }
+
+  resetGame() {
+    this.ballX = Math.random() * (this.gameContainer.offsetWidth - this.ballElement.offsetWidth);
+    this.ballY = Math.random() * (this.gameContainer.offsetHeight - this.ballElement.offsetHeight);
+    this.updateBallPosition();
+    this.ballElement.style.display = "none";
+    clearInterval(this.interval);
+    this.gameActive = false;
+  }
+
+  updateBallPosition() {
+    this.ballElement.style.left = this.ballX + "px";
+    this.ballElement.style.top = this.ballY + "px";
+  }
+
+  updateBall() {
+    this.ballX += this.ballSpeedX;
+    this.ballY += this.ballSpeedY;
+
+    // Check for collisions with walls
+    if (this.ballX <= 0 || this.ballX >= this.gameContainer.offsetWidth - this.ballElement.offsetWidth) {
+      this.ballSpeedX = -this.ballSpeedX;
+    }
+
+    if (this.ballY <= 0 || this.ballY >= this.gameContainer.offsetHeight - this.ballElement.offsetHeight) {
+      this.ballSpeedY = -this.ballSpeedY;
+    }
+
+    // Update ball position
+    this.updateBallPosition();
+  }
+
+
+  start() {
+   
+   // if any of the nav buttons are red, set them back to blue and reset the game
+   for (var i = 0; i < this.navButtons.length; i++) {
+      if (this.navButtons[i].style.backgroundColor == "red") {
+         this.navButtons[i].style.backgroundColor = "#3498db";
+         this.resetGame();
+      }
+   }
+   this.setSize();
+   this.ballElement.style.display = "block";
+   this.gameActive = true;
+   this.interval = setInterval(this.updateBall.bind(this), 16); // 60 frames per second
+  
+  }
+}
+
+// end of Ball class //
+
+var gameContainer = document.getElementById("game-container");
+var ball1 = document.getElementById("ball1");
+var ball2 = document.getElementById("ball2");
+var ball3 = document.getElementById("ball3");
+var ball4 = document.getElementById("ball4");
+var ball5 = document.getElementById("ball5");
+
+function gameMode(mode) {
+   if (mode == "normal") {
+
+      // set background image for game-container to 
+
+      ball_normal = new Ball(gameContainer, ball1, 5, 5, 70, true);
+      ball_normal.start();
+
+      // watch for click events on the ball
+      ball1.addEventListener("click", function ball1Click() {
+         setTimeout(function() {
+            alert("Congratulations! You've won!");
+            ball_normal.resetGame();
+            mode1.style.color = "white";
+         }, 500);
+         this.removeEventListener("click", ball1Click);
+      });
+   }
+   else if (mode == "avoid") {
+      ball1_avoid = new Ball(gameContainer, ball1, 3, 3, 90, false, true);
+      ball2_avoid = new Ball(gameContainer, ball2, 5, 5, 75, false, true);
+      ball3_avoid = new Ball(gameContainer, ball3, 7, 7, 60, false, true);
+      ball4_avoid = new Ball(gameContainer, ball4, 9, 9, 45, false, true);
+      ball5_avoid = new Ball(gameContainer, ball5, 11, 11, 30, false, true);
+
+      ball1_avoid.start();
+      ball2_avoid.start();
+      ball3_avoid.start();
+      ball4_avoid.start();
+      ball5_avoid.start();
+
+
+      // watch for mouseover events on the balls 
+      ball1.addEventListener("mouseover", function ball1Mouse() {
+         this.removeEventListener("mouseover", ball1Mouse);
+         endGame();
+      });
+      ball2.addEventListener("mouseover", function ball2Mouse() {
+         this.removeEventListener("mouseover", ball2Mouse);
+         endGame();
+      });
+      ball3.addEventListener("mouseover", function ball3Mouse() {
+         this.removeEventListener("mouseover", ball3Mouse);
+         endGame();
+      });
+      ball4.addEventListener("mouseover", function ball4Mouse() {
+         this.removeEventListener("mouseover", ball4Mouse);
+         endGame();
+      });
+      ball5.addEventListener("mouseover", function ball5Mouse() {
+         this.removeEventListener("mouseover", ball5Mouse);
+         endGame();
+      });
+
+      endGame = function() {
+         // set a timeout to allow the mouse to move off the ball before the alert pops up
+         setTimeout(function() {
+            alert("Game Over!");
+            ball1_avoid.resetGame();
+            ball2_avoid.resetGame();
+            ball3_avoid.resetGame();
+            ball4_avoid.resetGame();
+            ball5_avoid.resetGame();
+            mode2.style.color = "white";
+
+         }, 500);
+      }
+   }
+   else if (mode == "avoid-and-click") {
+      ball1.style.backgroundColor = "red";
+      ball2.style.backgroundColor = "green";
+
+      ball1_avoidClick = new Ball(gameContainer, ball1, 3, 3, 90, true);
+      ball2_avoidClick = new Ball(gameContainer, ball2, 5, 5, 75);
+      ball3_avoidClick = new Ball(gameContainer, ball3, 7, 7, 60);
+      ball4_avoidClick = new Ball(gameContainer, ball4, 9, 9, 45);
+      ball5_avoidClick = new Ball(gameContainer, ball5, 11, 11, 30);
+
+      ball1_avoidClick.start();
+      ball2_avoidClick.start();
+      ball3_avoidClick.start();
+      ball4_avoidClick.start();
+      ball5_avoidClick.start();
+
+      // watch for click events on ball1
+      ball1.addEventListener("click", function ball1Click() {
+         setTimeout(function() {
+            ball1_avoidClick.resetGame();
+            ball2_avoidClick.resetGame();
+            ball3_avoidClick.resetGame();
+            ball4_avoidClick.resetGame();
+            ball5_avoidClick.resetGame();
+            mode3.style.color = "white";
+            alert("Congratulations! You've won!");
+         }, 500);
+         this.removeEventListener("click", ball1Click);
+      });
+
+
+      // watch for mouseover events on the balls 
+   
+      ball2.addEventListener("mouseover", function ball2Mouse() {
+         this.removeEventListener("mouseover", ball2Mouse);
+         endGame();
+      });
+      ball3.addEventListener("mouseover", function ball3Mouse() {
+         this.removeEventListener("mouseover", ball3Mouse);
+         endGame();
+      });
+      ball4.addEventListener("mouseover", function ball4Mouse() {
+         this.removeEventListener("mouseover", ball4Mouse);
+         endGame();
+      });
+      ball5.addEventListener("mouseover", function ball5Mouse() {
+         endGame();
+         this.removeEventListener("mouseover", ball5Mouse);
+      });
+
+      endGame = function() {
+         // set a timeout to allow the mouse to move off the ball before the alert pops up
+         setTimeout(function() {
+            ball1_avoidClick.resetGame();
+            ball2_avoidClick.resetGame();
+            ball3_avoidClick.resetGame();
+            ball4_avoidClick.resetGame();
+            ball5_avoidClick.resetGame();
+            mode3.style.color = "white";
+            alert("Game Over!");
+         }, 500);
+      }
+
+   }
+   else if (mode == "insane") {
+      ball2.style.display = "block";
+      ball3.style.display = "block";
+      ball4.style.display = "block";
+      ball5.style.display = "block";
+   }
+}
+
+document.getElementById("mode1").addEventListener("click", function() {
+if (this.style.color == "black") {
+   this.style.color = "white";
+   // reset the Ball class  //
+   ball_normal.resetGame();
+   ball1.style.display = "none";
+   return;
+} else {
+   this.style.color = "black";
+   gameMode("normal");
+}
+});
+
+const mode2 = document.getElementById("mode2")
+mode2.addEventListener("click", function() {
+   if (this.style.color == "black") {
+      this.style.color = "white";
+      // reset the Ball class  //
+      ball1_avoid.resetGame();
+      ball2_avoid.resetGame();
+      ball3_avoid.resetGame();
+      ball4_avoid.resetGame();
+      ball5_avoid.resetGame();
+      ball1.style.display = "none";
+      ball2.style.display = "none";
+      ball3.style.display = "none";
+      ball4.style.display = "none";
+      ball5.style.display = "none";
+      return;
+   } else {
+      this.style.color = "black";
+      gameMode("avoid");
+   }
+});
+
+document.getElementById("mode3").addEventListener("click", function() {
+   if (this.style.color == "black") {
+      this.style.color = "white";
+      // reset the Ball class  //
+      ball1_avoidClick.resetGame();
+      ball2_avoidClick.resetGame();
+      ball3_avoidClick.resetGame();
+      ball4_avoidClick.resetGame();
+      ball5_avoidClick.resetGame();
+      ball1.style.display = "none";
+      ball2.style.display = "none";
+      ball3.style.display = "none";
+      ball4.style.display = "none";
+      ball5.style.display = "none";
+      return;
+   } else {
+      this.style.color = "black";
+      gameMode("avoid-and-click");
+   }
+});
+
+document.getElementById("mode4").addEventListener("click", function() {
+   gameMode("insane");
+});
+/*
+ball2.style.display = "block";
+ball3.style.display = "block";
+ball4.style.display = "block";
+ball5.style.display = "block";
+var ball1 = new Ball(gameContainer, ball1, 3, 3, 400, true);   
+var ball2 = new Ball(gameContainer, ball2, 3, 3, 80);
+var ball3 = new Ball(gameContainer, ball3, 3, 3, 90);
+var ball4 = new Ball(gameContainer, ball4, 3, 3, 100);
+var ball5 = new Ball(gameContainer, ball5 , 3, 3, 60);
+
+
+ball1.start();
+ball2.start();
+ball3.start();
+ball4.start();
+ball5.start();
+
+*/
+/*
+      // Make this into a class to make it easier to create multiple balls //
+      var ballSpeedX1 = 5; // Horizontal speed
+      var ballSpeedY1 = 5; // Vertical speed
+      // Initialize ball position
+      var ballX1 = Math.random() * (gameContainer.offsetWidth - ball1.offsetWidth);
+      var ballY1 = Math.random() * (gameContainer.offsetHeight - ball1.offsetHeight);
+
+      ball.style.left = ballX1 + "px";
+      ball.style.top = ballY1 + "px";
+
+      function updateBall() {
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+
+        // Check for collisions with walls
+        if (ballX <= 0 || ballX >= gameContainer.offsetWidth - ball.offsetWidth) {
+          ballSpeedX = -ballSpeedX;
+        }
+
+        if (ballY <= 0 || ballY >= gameContainer.offsetHeight - ball.offsetHeight) {
+          ballSpeedY = -ballSpeedY;
+        }
+
+        // Update ball position
+        ball.style.left = ballX + "px";
+        ball.style.top = ballY + "px";
+      }
+
+      // Function to handle click events on the ball
+      function handleBallClick() {
+        alert("Congratulations! You've won!");
+
+        resetGame();
+      }
+
+      function resetGame() {
+        ballX = Math.random() * (gameContainer.offsetWidth - ball.offsetWidth);
+        ballY = Math.random() * (gameContainer.offsetHeight - ball.offsetHeight);
+
+        ball.style.left = ballX + "px";
+        ball.style.top = ballY + "px";
+      }
+
+      setInterval(updateBall, 16); // 60 frames per second
+      ball1.addEventListener("click", handleBallClick);
+    }); */
+  </script>
+</body>
+</html>
