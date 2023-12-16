@@ -43,6 +43,7 @@
       var onOffText2 = document.getElementById("on-off-2");
       var onSwitch1 = false;
       var onSwitch2 = false;
+      var next = document.getElementById("next");
 
 
       var countdownElement = document.getElementById("countdown");
@@ -140,12 +141,9 @@
                totalSeconds--;
 
                if (totalSeconds < 0) {
-                        clearInterval(starsCountdown);
-                        countdownElement.textContent = "Time's up! You got " + starsClicked + " stars. Reloading in 5 seconds...";
-                        // wait 5 seconds before reloading the page
-                        setTimeout(function () {
-                           window.location.reload();
-                        }, 5000);
+                  clearInterval(starsCountdown);
+                  countdownElement.textContent = "Time's up! You got " + starsClicked + " stars. Click next, or reload to play again.";
+                  next.style.display = "block";
                }
             }, 1000); 
          }
@@ -160,11 +158,8 @@
                
                if (starsClicked === 10) {
                   clearInterval(starsCountdown);
-                  countdownElement.textContent = "You got all the stars! Score: " + starsClicked + " Reloading in 5 seconds...";
-                  // wait 5 seconds before reloading the page
-                  setTimeout(function () {
-                     window.location.reload();
-                  }, 5000);
+                  countdownElement.textContent = "You got all the stars! Score: " + starsClicked + " Click next, or reload to play again.";
+                  next.style.display = "block";
                }
             });
          });

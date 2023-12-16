@@ -15,6 +15,40 @@
          position: fixed;
          top: 50%;
          left: 50%;
+         width: 50%;
+         height: 7%;
+         margin-left: -25%;
+         margin-top: -3.5%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         gap: 2%;
+         flex-wrap: wrap;
+         background-color: transparent;
+      }
+
+      nav button {
+         margin: 0;
+         padding: 10px 20px;
+         width:31%;
+         height: 100%;
+         border: solid 2px #ffffff;
+         border-radius: 5px;
+         background-color: transparent;
+         background-image: linear-gradient(to bottom, #4b3c5c37, 35%, rgba(200, 200, 200, 0.673) 50%, #524e3c79 65%);
+         color: #fff;
+         font-size: 18px;
+         cursor: pointer;
+         min-width: 120px;
+         /* get wallpoet font from Wallpoet-Regular.tff*/
+         font-family: "wallpoet";
+         font-weight: bold;
+      }
+
+      #game-display {
+         position: absolute;
+         top: 30%;
+         left: 50%;
          width: 45%;
          height: 7%;
          margin-left: -22.5%;
@@ -22,22 +56,13 @@
          display: flex;
          justify-content: center;
          align-items: center;
-         gap: 2%;
-         flex-wrap: wrap;
-      }
-
-      nav button {
-         margin: 0;
-         padding: 10px 20px;
-         width:23%;
-         height: 100%;
-         border: none;
-         border-radius: 5px;
-         background-color: #3498db;
-         color: #fff;
-         font-size: 16px;
-         cursor: pointer;
-         min-width: 120px;
+         background-color: black;
+         color: white;
+         font-size: 18px;
+         font-family: "wallpoet";
+         font-weight: bold;
+         border-radius: 14px;
+   
       }
 
     #game-container {
@@ -49,11 +74,16 @@
       background-size: cover;
     }
 
+    #game-container div {
+      background-size: cover;
+      background-position: center;
+    }
+
     #ball1 {
       position: absolute;
       width: 50px;
       height: 50px;
-      background-color: #3498db;
+      background-color: #ffffff;
       border-radius: 50%;
       cursor: pointer;
       display: none;
@@ -63,7 +93,7 @@
          position: absolute;
          width: 50px;
          height: 50px;
-         background-color: #3498db;
+         background-color: #ffffff;
          border-radius: 50%;
          cursor: pointer;
          display: none;
@@ -73,7 +103,7 @@
          position: absolute;
          width: 50px;
          height: 50px;
-         background-color: #3498db;
+         background-color: #ffffff;
          border-radius: 50%;
          cursor: pointer;
          display: none;
@@ -83,7 +113,7 @@
          position: absolute;
          width: 50px;
          height: 50px;
-         background-color: #3498db;
+         background-color: #ffffff;
          border-radius: 50%;
          cursor: pointer;
          display: none;
@@ -93,7 +123,7 @@
          position: absolute;
          width: 50px;
          height: 50px;
-         background-color: #3498db;
+         background-color: #ffffff;
          border-radius: 50%;
          cursor: pointer;
          display: none;
@@ -131,9 +161,11 @@
          left: 0%;
          margin: 0;
          padding: 14px;
-         font-size: 12px;
+         font-size: 14px;
          color: white;
          display: none;
+         background-color: #5b90b4aa;
+         border-radius: 10px;
       }
 
       #attribute_2 {
@@ -142,7 +174,7 @@
          left: 0%;
          margin: 0;
          padding: 14px;
-         font-size: 12px;
+         font-size: 14px;
          color: white;
          display: none;
       }
@@ -153,7 +185,7 @@
          left: 0%;
          margin: 0;
          padding: 14px;
-         font-size: 12px;
+         font-size: 14px;
          color: white;
          display: none;
       }
@@ -176,8 +208,8 @@
    <button id="mode1">click ball</button>
    <button id="mode2">avoid</button>
    <button id="mode3">avoid-and-click</button>
-   <button id="mode4">Mode 4</button>
 </nav>
+<p id="game-display">Complete three games to continue.</p>
 <p id="attribute_1">FreeFunArt via Pixabay</p>
 <p id="attribute_2">DavidRockDesign via Pixabay</p>
 <p id="attribute_3">Stefan Schweihofer via Pixabay</p>
@@ -187,12 +219,13 @@
 
 <script>
 class Ball {
-  constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size) {
+  constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size, background="null") {
     this.gameContainer = gameContainer;
     this.ballElement = ballElement;
     this.ballSpeedX = ballSpeedX;
     this.ballSpeedY = ballSpeedY;
     this.size = size; // px
+    this.background = background;
     this.interval = null;
     this.gameActive = false;
     this.resetGame();
@@ -203,11 +236,24 @@ class Ball {
       this.ballElement.style.width = this.size + "px";
    }
 
+   setBackground() {
+      if (this.background == "click1") {
+         this.ballElement.style.backgroundImage = "url('./images/click-ball.png')";
+      }
+      else if (this.background == "click2") {
+         this.ballElement.style.backgroundImage = "url('./images/avoid-click-ball.png')";
+      }
+      else {
+         this.ballElement.style.backgroundImage = "url('./images/avoid-ball.png')";
+      }
+   }
+
   resetGame() {
     this.ballX = Math.random() * (this.gameContainer.offsetWidth - this.ballElement.offsetWidth);
     this.ballY = Math.random() * (this.gameContainer.offsetHeight - this.ballElement.offsetHeight);
     this.updateBallPosition();
     this.ballElement.style.display = "none";
+    this.ballElement.style.backgroundImage = "none";
     clearInterval(this.interval);
     this.gameActive = false;
   }
@@ -245,6 +291,7 @@ class Ball {
       }
    }
    this.setSize();
+   this.setBackground();
    this.ballElement.style.display = "block";
    this.gameActive = true;
    this.interval = setInterval(this.updateBall.bind(this), 16); // 60 frames per second
@@ -264,11 +311,14 @@ var controls = document.getElementById("controls");
 var attribute_click = document.getElementById("attribute_1");
 var attribute_avoid = document.getElementById("attribute_2");
 var attribute_avoid_click = document.getElementById("attribute_3");
+var next = document.getElementById("next");
+var prev = document.getElementById("prev");
+var gameDisplay = document.getElementById("game-display");
 
 function gameMode(mode) {
    if (mode == "normal") {
 
-      ball_normal = new Ball(gameContainer, ball1, 5, 5, 70, true);
+      ball_normal = new Ball(gameContainer, ball1, 5, 5, 70, "click1");
       ball_normal.start();
 
       // watch for click events on the ball
@@ -278,6 +328,9 @@ function gameMode(mode) {
             ball_normal.resetGame();
             mode1.style.color = "white";
             controls.style.display = "flex";
+            next.style.display = "block";
+            prev.style.display = "block";
+            attribute_click.style.display = "none";
             gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
                gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
                gsap.to("#game-container", {duration: 1, opacity: 1});
@@ -339,33 +392,48 @@ function gameMode(mode) {
       ball4.addEventListener("mouseover", ball4Mouse);
       ball5.addEventListener("mouseover", ball5Mouse);
 
-      endGame = function() {
-         // set a timeout to allow the mouse to move off the ball before the alert pops up
-         setTimeout(function() {
-            alert("Avoid Game Over!");
-            ball1_avoid.resetGame();
-            ball2_avoid.resetGame();
-            ball3_avoid.resetGame();
-            ball4_avoid.resetGame();
-            ball5_avoid.resetGame();
-            mode2.style.color = "white";
-            controls.style.display = "flex";
+      endGame = function(win = false) {
+         ball1_avoid.resetGame();
+         ball2_avoid.resetGame();
+         ball3_avoid.resetGame();
+         ball4_avoid.resetGame();
+         ball5_avoid.resetGame();
+
+        if (win) {
+            mode2.innerText = "complete";
+            mode2.style.fontStyle = "italic";  
+            gameDisplay.innerText = "Game 2 complete";
+            gameDisplay.style.display = "flex";
+         }
+         else {
+            mode2.innerText = "avoid";
+            gameDisplay.innerText = "Game 2 failed";
+            gameDisplay.style.display = "flex";
+         }
+
+         setTimeout( function() {
+            gameDisplay.innerText = "complete three games to continue";
             gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
                gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
                gsap.to("#game-container", {duration: 1, opacity: 1});
+               mode2.style.color = "white";
+               controls.style.display = "flex";
+               next.style.display = "block";
+               prev.style.display = "block";
+               attribute_avoid.style.display = "none";
             }});
-         }, 500);
+         }, 5000
+         );
       }
    }
    else if (mode == "avoid-and-click") {
-      ball1.style.backgroundColor = "red";
-      ball2.style.backgroundColor = "green";
+      ball1.style.backgroundColor = "transparent";
 
-      ball1_avoidClick = new Ball(gameContainer, ball1, 3, 3, 90, true);
-      ball2_avoidClick = new Ball(gameContainer, ball2, 5, 5, 75);
-      ball3_avoidClick = new Ball(gameContainer, ball3, 7, 7, 60);
-      ball4_avoidClick = new Ball(gameContainer, ball4, 9, 9, 45);
-      ball5_avoidClick = new Ball(gameContainer, ball5, 11, 11, 30);
+      ball1_avoidClick = new Ball(gameContainer, ball1, 3, 3, 120, "click2");
+      ball2_avoidClick = new Ball(gameContainer, ball2, 5, 5, 100);
+      ball3_avoidClick = new Ball(gameContainer, ball3, 7, 7, 85);
+      ball4_avoidClick = new Ball(gameContainer, ball4, 9, 9, 70);
+      ball5_avoidClick = new Ball(gameContainer, ball5, 11, 11, 55);
 
       ball1_avoidClick.start();
       ball2_avoidClick.start();
@@ -373,73 +441,83 @@ function gameMode(mode) {
       ball4_avoidClick.start();
       ball5_avoidClick.start();
 
-      // watch for click events on ball1
-      ball1.addEventListener("click", function ball1Click() {
-         setTimeout(function() {
-            ball1_avoidClick.resetGame();
-            ball2_avoidClick.resetGame();
-            ball3_avoidClick.resetGame();
-            ball4_avoidClick.resetGame();
-            ball5_avoidClick.resetGame();
-            mode3.style.color = "white";
-            controls.style.display = "flex";
-            gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
-               gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
-               gsap.to("#game-container", {duration: 1, opacity: 1});
-            }});
-            alert("Congratulations! You've won!");
-         }, 500);
-         this.removeEventListener("click", ball1Click);
-      });
-
-
-      // watch for mouseover events on the balls 
-   
-      ball2.addEventListener("mouseover", function ball2Mouse() {
-         this.removeEventListener("mouseover", ball2Mouse);
-         endGame();
-      });
-      ball3.addEventListener("mouseover", function ball3Mouse() {
-         this.removeEventListener("mouseover", ball3Mouse);
-         endGame();
-      });
-      ball4.addEventListener("mouseover", function ball4Mouse() {
-         this.removeEventListener("mouseover", ball4Mouse);
-         endGame();
-      });
-      ball5.addEventListener("mouseover", function ball5Mouse() {
-         endGame();
-         this.removeEventListener("mouseover", ball5Mouse);
-      });
-
-      endGame = function() {
-         // set a timeout to allow the mouse to move off the ball before the alert pops up
-         setTimeout(function() {
-            ball1_avoidClick.resetGame();
-            ball2_avoidClick.resetGame();
-            ball3_avoidClick.resetGame();
-            ball4_avoidClick.resetGame();
-            ball5_avoidClick.resetGame();
-            mode3.style.color = "white";
-            controls.style.display = "flex";
-            gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
-               gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
-               gsap.to("#game-container", {duration: 1, opacity: 1});
-             }});
-            alert("Avoid Click Game Over!");
-         }, 500);
+      function removeEventListeners() {
+         ball1.removeEventListener("mouseover", ball1Mouse);
+         ball2.removeEventListener("mouseover", ball2Mouse);
+         ball3.removeEventListener("mouseover", ball3Mouse);
+         ball4.removeEventListener("mouseover", ball4Mouse);
+         ball5.removeEventListener("mouseover", ball5Mouse);
       }
 
-   }
-   else if (mode == "insane") {
-      ball2.style.display = "block";
-      ball3.style.display = "block";
-      ball4.style.display = "block";
-      ball5.style.display = "block";
+      function ball1Click() {
+         removeEventListeners();
+         endGame(true);
+      }
+
+      function ball2Mouse() {
+         removeEventListeners();
+         endGame();
+      }
+
+      function ball3Mouse() {
+         removeEventListeners();
+         endGame();
+      }
+
+      function ball4Mouse() {
+         removeEventListeners();
+         endGame();
+      }
+
+      function ball5Mouse() {
+         removeEventListeners();
+         endGame();
+      }
+      // watch for click events on ball1 and mouseover events on the other balls
+      ball1.addEventListener("click", ball1Click);
+      ball2.addEventListener("mouseover", ball2Mouse);
+      ball3.addEventListener("mouseover", ball3Mouse);
+      ball4.addEventListener("mouseover", ball4Mouse);
+      ball5.addEventListener("mouseover", ball5Mouse);
+
+      endGame = function(win = false) {
+         ball1_avoidClick.resetGame();
+         ball2_avoidClick.resetGame();
+         ball3_avoidClick.resetGame();
+         ball4_avoidClick.resetGame();
+         ball5_avoidClick.resetGame();
+
+         if (win) {
+            mode3.innerText = "complete";
+            mode3.style.fontStyle = "italic";  
+            gameDisplay.innerText = "Game 3 complete";
+            gameDisplay.style.display = "flex";
+         }
+         else {
+            mode3.innerText = "avoid-and-click";
+            gameDisplay.innerText = "Game 3 failed";
+            gameDisplay.style.display = "flex";
+         }
+         setTimeout( function() {
+            gameDisplay.innerText = "complete three games to continue";
+            
+            gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
+               gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
+               gsap.to("#game-container", {duration: 1, opacity: 1});
+               mode3.style.color = "white";
+               controls.style.display = "flex";
+               next.style.display = "block";
+               prev.style.display = "block";
+               attribute_avoid_click.style.display = "none";
+            }});
+         }, 5000
+         );
+      }
    }
 }
 
-document.getElementById("mode1").addEventListener("click", function() {
+const mode1 = document.getElementById("mode1");
+mode1.addEventListener("click", function() {
 if (this.style.color == "black") {
    this.style.color = "white";
    // reset the Ball class  //
@@ -448,19 +526,25 @@ if (this.style.color == "black") {
    gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
       gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
       gsap.to("#game-container", {duration: 1, opacity: 1});
-      attribute_click.style.display = "block";
+      attribute_click.style.display = "none";
+      next.style.display = "block";
+      prev.style.display = "block";
    }});
    return;
 } else {
    this.style.color = "black";
-
+   controls.style.display = "none";
    gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
       gsap.to("#game-container", {duration: 1, backgroundImage: "url('./images/normal-background.png')"});
       gsap.to("#game-container", {duration: 1, opacity: 1});
-      attribute_click.style.display = "none";
+      attribute_click.style.display = "block";
+      next.style.display = "none";
+      prev.style.display = "none";
+      gameDisplay.style.display = "none";
+      setTimeout(function() {
+         gameMode("normal");
+      }, 2000);
    }});
-   controls.style.display = "none";
-   gameMode("normal");
    
 }
 });
@@ -475,32 +559,34 @@ mode2.addEventListener("click", function() {
       ball3_avoid.resetGame();
       ball4_avoid.resetGame();
       ball5_avoid.resetGame();
-      ball1.style.display = "none";
-      ball2.style.display = "none";
-      ball3.style.display = "none";
-      ball4.style.display = "none";
-      ball5.style.display = "none";
 
       gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
          gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
          gsap.to("#game-container", {duration: 1, opacity: 1});
-         attribute_avoid.style.display = "block";
+         attribute_avoid.style.display = "none";
+         next.style.display = "block"; 
+         prev.style.display = "block";
       }});
       return;
    } else {
       this.style.color = "black";
+      controls.style.display = "none";
       gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
          gsap.to("#game-container", {duration: 1, backgroundImage: "url('./images/avoid.png')"});
          gsap.to("#game-container", {duration: 1, opacity: 1});
-         attribute_avoid.style.display = "none";
+         attribute_avoid.style.display = "block";
+         next.style.display = "none";
+         prev.style.display = "none";
+         gameDisplay.style.display = "none";
+         setTimeout(function() {
+            gameMode("avoid");
+         }, 2000);
       }});
-
-      controls.style.display = "none";
-      gameMode("avoid");
    }
 });
 
-document.getElementById("mode3").addEventListener("click", function() {
+const mode3 = document.getElementById("mode3")
+mode3.addEventListener("click", function() {
    if (this.style.color == "black") {
       this.style.color = "white";
       // reset the Ball class  //
@@ -509,33 +595,33 @@ document.getElementById("mode3").addEventListener("click", function() {
       ball3_avoidClick.resetGame();
       ball4_avoidClick.resetGame();
       ball5_avoidClick.resetGame();
-      ball1.style.display = "none";
-      ball2.style.display = "none";
-      ball3.style.display = "none";
-      ball4.style.display = "none";
-      ball5.style.display = "none";
-
+  
       gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
          gsap.to("#game-container", {duration: 1, backgroundImage: "none"});
          gsap.to("#game-container", {duration: 1, opacity: 1});
-         attribute_avoid_click.style.display = "block";
+         attribute_avoid_click.style.display = "none";
+         next.style.display = "block";
+         prev.style.display = "block";
       }});
       return;
    } else {
       this.style.color = "black";
+      controls.style.display = "none";
       gsap.to("#game-container", {duration: 1, opacity: 0, onComplete: function() {
          gsap.to("#game-container", {duration: 1, backgroundImage: "url('./images/avoid-and-click.png')"});
          gsap.to("#game-container", {duration: 1, opacity: 1});
-         attribute_avoid_click.style.display = "none";
+         attribute_avoid_click.style.display = "block";
+         next.style.display = "none";
+         prev.style.display = "none";
+         gameDisplay.style.display = "none";
+         setTimeout(function() {
+            gameMode("avoid-and-click");
+         }, 2000);
       }});
-      controls.style.display = "none";
-      gameMode("avoid-and-click");
+     
    }
 });
 
-document.getElementById("mode4").addEventListener("click", function() {
-   gameMode("insane");
-});
 /*
 ball2.style.display = "block";
 ball3.style.display = "block";

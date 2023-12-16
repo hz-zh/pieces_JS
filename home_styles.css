@@ -20,7 +20,7 @@ body {
    right: 0%;
    z-index: 5;
    margin: 2%;
-   
+   display: none;
 }
 
 #next-img {
