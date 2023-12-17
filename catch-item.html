@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <title id="title">Catch or Avoid</title>
   <style>
     body {
       margin: 0;
@@ -55,6 +56,21 @@
          cursor: pointer;
          min-width: 120px;
          font-weight: bold;
+      }
+
+      #copyright {
+         position: absolute;
+         bottom: 0%;
+         right: 0%;
+         margin: 15px;
+         color: rgba(255, 255, 255, 0.7);
+         font-size: .9em;
+         font-family: 'Rubik', sans-serif;
+         font-weight: 300;
+         z-index: 2;
+         padding: 0;
+         width: fit-content;
+         height: auto;
       }
 
       #game-display {
@@ -233,8 +249,9 @@
 </head>
 <body>
    <div id="followElement"></div>
-   <a id="next" href="index.html"><img id="next-img" src="./images/next.png"></a>
+   <a id="next" href="animation.html"><img id="next-img" src="./images/next.png"></a>
    <a id="prev" href="index.html"><img id="next-img" src="./images/next.png"></a>
+   <p id="copyright">Henry Zelenak &copy 2023</p>
    <div id="game-container">
       <div id="ball1"></div>
       <div id="ball2"></div>
