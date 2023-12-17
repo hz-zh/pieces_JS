@@ -216,8 +216,8 @@
 
       @media (min-width: 1500px) and (min-height: 1000px) {
          #next-img {
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
          }
 
          #game-display {
@@ -242,6 +242,10 @@
 
          #attribute_3 {
             font-size: 20px;
+         }
+
+         #copyright {
+            font-size: 1.2em;
          }
 
       }
@@ -378,7 +382,7 @@
 
          // if the screen is bigger than 1500px x 1000px, make the ball bigger
          if (vw > 1500 && vh > 1000) {
-            ball_normal = new Ball(gameContainer, ball1, 5, 5, 100, "click1");
+            ball_normal = new Ball(gameContainer, ball1, 7, 7, 100, "click1");
          }
          else {
             ball_normal = new Ball(gameContainer, ball1, 5, 5, 80, "click1");
@@ -438,11 +442,11 @@
       else if (mode == "avoid") {
 
          if (vw > 1500 && vh > 1000) {
-            ball1_avoid = new Ball(gameContainer, ball1, 3, 3, 100, false, true);
-            ball2_avoid = new Ball(gameContainer, ball2, 5, 5, 85, false, true);
-            ball3_avoid = new Ball(gameContainer, ball3, 7, 7, 70, false, true);
-            ball4_avoid = new Ball(gameContainer, ball4, 9, 9, 55, false, true);
-            ball5_avoid = new Ball(gameContainer, ball5, 11, 11, 45, false, true);
+            ball1_avoid = new Ball(gameContainer, ball1, 5, 5, 180, false, true);
+            ball2_avoid = new Ball(gameContainer, ball2, 6, 6, 100, false, true);
+            ball3_avoid = new Ball(gameContainer, ball3, 8, 8, 85, false, true);
+            ball4_avoid = new Ball(gameContainer, ball4, 9, 9, 65, false, true);
+            ball5_avoid = new Ball(gameContainer, ball5, 11, 11, 50, false, true);
          }
          else {
             ball1_avoid = new Ball(gameContainer, ball1, 3, 3, 85, false, true);
