@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title">End</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/MotionPathPlugin.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TimelineMax.min.js"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #232344;
+      height: 100vh;
+      width: 100%;
+    }
+
+    #horizon {
+      position: fixed;
+      bottom: -5%;
+      left: 50%;
+      margin-left: -50%;
+      margin-top: -40%;
+      width: 100%;
+      height: 70%;
+      z-index: 13;
+    }
+
+    #sun {
+      position: absolute;
+      top: 90%;
+      left: 50%;
+      margin-left: -200px;
+      width: 400px;
+      height: 400px;
+      background-color: #fff4b4;
+      background-image: radial-gradient(circle at 50% 50%, #ffffff, #ffee8e 20%, #fbff84 50%, #ffffff 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 #f9f9f9;
+      z-index: 10;
+      animation: sun 10s linear;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      border: solid 2px yellow;
+    }
+
+    @keyframes sun {
+      0% {
+         top: 90%;
+         transform: rotate(0deg);
+      }
+      50% {
+         top: 90%;
+         transform: rotate(0deg);
+      }
+      100% {
+         top: 60%;
+         transform: rotate(0deg);
+      }
+    }
+
+
+    #sunBeams {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    } 
+
+    .sunBeam {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -4.5%;
+     
+      width: 9%;
+      height: 100%;
+      box-shadow: 0 0 0 0 #f9f9f9;
+      background-color: aquamarine;
+      
+      animation-fill-mode: forwards;
+      transform-origin: bottom center;
+    }
+
+    #sunBeam-1 {
+      animation: sunBeam-1 10s linear;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      background-color: #fefbb3;
+      background-image: linear-gradient(to right , #fefbb3, #ffe5e5);
+   }
+
+   @keyframes sunBeam-1 {
+      0% {
+         width: 9%;
+         height: 100%;
+         top: 100%;
+         transform: rotate(0deg);
+      }
+      25% {
+         width: 9%;
+         height: 100%;
+         top: 50%;
+         transform: rotate(0deg);
+      }
+      50% {
+         width: 9%;
+         height: 100%;
+         top: 0%;
+         transform: rotate(0deg);
+      }
+      75% {
+         width: 14%;
+         height: 120%;
+         top: -20%;
+         transform: rotate(-35deg);
+      }
+      100% {
+         width: 40%;
+         height: 150%;
+         top: -50%;
+         transform: rotate(-70deg);
+      }
+   }
+
+    #sunBeam_0 {
+      animation: sunBeam0 10s linear;
+      animation-delay: 0s;
+      animation-fill-mode: forwards;
+      background-color: #f4cbfa;
+      background-image: linear-gradient(to right , #f6e3eb, #cff1e9);
+   }
+
+   @keyframes sunBeam0 {
+      0% {
+         width: 9%;
+         height: 100%;
+         top: 100%;
+         transform: rotate(0deg);
+      }
+      25% {
+         width: 9%;
+         height: 100%;
+         top: 50%;
+         transform: rotate(0deg);
+      }
+      50% {
+         width: 9%;
+         height: 100%;
+         top: 0%;
+         transform: rotate(0deg);
+      }
+      
+      75% {
+         width: 12%;
+         height: 120%;
+         top: -20%;
+         transform: rotate(-30deg);
+      }
+      100% {
+         width: 18%;
+         height: 150%;
+         top: -50%;
+         transform: rotate(-60deg);
+      }
+   }
+
+      #sunBeam_1 {
+         animation: sunBeam1 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #fefbb3;
+         background-image: linear-gradient(to right , #fefbb3, #ffe5e5);
+      }
+
+
+    @keyframes sunBeam1 {
+      0% {
+         width: 9%;
+         height: 100%;
+         top: 100%;
+         transform: rotate(0deg);
+      }
+      25% {
+         width: 9%;
+         height: 100%;
+         top: 50%;
+         transform: rotate(0deg);
+      }
+      50% {
+         width: 9%;
+         height: 100%;
+         top: 0%;
+         transform: rotate(0deg);
+      }
+      75% {
+         width: 12%;
+         height: 120%;
+         top: -20%;
+         transform: rotate(25deg);
+      }
+      100% {
+         width: 14%;
+         height: 150%;
+         top: -50%;
+         transform: rotate(50deg);
+      }
+
+    }
+
+      #sunBeam_2 {
+         animation: sunBeam2 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #fef5b3;
+         background-image: linear-gradient(to right , #eceeb1, #fbffe5);
+      }
+
+      @keyframes sunBeam2 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(-25deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-50deg);
+         }
+   
+      }
+
+      #sunBeam_3 {
+         animation: sunBeam3 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #fefbb3;
+         background-image: linear-gradient(to right , #ceefff, #ffffe5);
+      }
+
+      @keyframes sunBeam3 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 115%;
+            top: -15%;
+            transform: rotate(20deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(40deg);
+         }
+   
+      }
+
+      #sunBeam_4 {
+         animation: sunBeam4 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #f4cbfa;
+         background-image: linear-gradient(to right , #fdd7e6, #cff1e9);
+      }
+
+      @keyframes sunBeam4 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(-20deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-40deg);
+         }
+   
+      }
+
+      #sunBeam_5 {
+         animation: sunBeam5 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #cbd6fa;
+         background-image: linear-gradient(to right , #e8fdd7, #dbcff1);
+      }
+
+      @keyframes sunBeam5 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 115%;
+            top: -15%;
+            transform: rotate(15deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(30deg);
+         }
+   
+      }
+
+      #sunBeam_6 {
+         animation: sunBeam6 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #f4cbfa;
+         background-image: linear-gradient(to right , #f6e3eb, #cff1e9);
+      }
+
+      @keyframes sunBeam6 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(-15deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-30deg);
+         }
+   
+      }
+
+      #sunBeam_7 {
+         animation: sunBeam7 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #cbd6fa;
+         background-image: linear-gradient(to right , #e8fdd7, #dbcff1);
+      }
+
+      @keyframes sunBeam7 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 115%;
+            top: -15%;
+            transform: rotate(10deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(20deg);
+         }
+   
+      }
+
+      #sunBeam_8 {
+         animation: sunBeam8 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #f4cbfa;
+         background-image: linear-gradient(to right , #f6e3eb, #cff1e9);
+      }
+
+      @keyframes sunBeam8 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(-10deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-20deg);
+         }
+   
+      }
+
+      #sunBeam_9 {
+         animation: sunBeam9 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #cbd6fa;
+         background-image: linear-gradient(to right , #e8fdd7, #dbcff1);
+      }
+
+      @keyframes sunBeam9 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 115%;
+            top: -15%;
+            transform: rotate(5deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(10deg);
+         }
+   
+      }
+
+      #sunBeam_10 {
+         animation: sunBeam10 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #f4cbfa;
+         background-image: linear-gradient(to right , #f6e3eb, #cff1e9);
+      }
+
+      @keyframes sunBeam10 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 12%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(-5deg);
+         }
+         100% {
+            width: 14%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-10deg);
+         }
+   
+      }
+
+      #sunBeam_11 {
+         animation: sunBeam11 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #cbd6fa;
+         background-image: linear-gradient(to right , #e8fdd7, #dbcff1);
+      }
+
+      @keyframes sunBeam11 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg);
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg);
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg);
+         }
+         75% {
+            width: 9%;
+            height: 115%;
+            top: -15%;
+            transform: rotate(-2.5deg);
+         }
+         100% {
+            width: 9%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(-4deg);
+         }
+   
+      }
+
+      #sunBeam_12 {
+         animation: sunBeam12 10s linear;
+         animation-delay: 0s;
+         animation-fill-mode: forwards;
+         background-color: #f4cbfa;
+         background-image: linear-gradient(to right , #f6e3eb, #cff1e9);
+      }
+
+      @keyframes sunBeam12 {
+         0% {
+            width: 9%;
+            height: 100%;
+            top: 100%;
+            transform: rotate(0deg) ;
+         }
+         25% {
+            width: 9%;
+            height: 100%;
+            top: 50%;
+            transform: rotate(0deg) ;
+         }
+         50% {
+            width: 9%;
+            height: 100%;
+            top: 0%;
+            transform: rotate(0deg) ;
+         }
+         75% {
+            width: 9%;
+            height: 120%;
+            top: -20%;
+            transform: rotate(2.5deg) ;
+         }
+         100% {
+            width: 9%;
+            height: 150%;
+            top: -50%;
+            transform: rotate(4deg) ;
+         }
+   
+      }
+
+   #next {
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      z-index: 15;
+      margin: 2%;
+      margin-top: 1%;
+      transform: rotate(180deg);
+   }
+
+
+   #next-img {
+      width: 70px;
+      height: 70px;
+      margin: 0;
+      padding: 0;
+   }
+
+   #copyright {
+      position: absolute;
+      bottom: 0%;
+      right: 0%;
+      margin: 15px;
+      color: white;
+      font-size: 1.0em;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 300;
+      z-index: 15;
+   }
+
+
+
+
+  </style>
+</head>
+<body>
+   <a id="next" href="catch-item.html"><img id="next-img" src="./images/next.png"></a>
+   <p id="copyright">Henry Zelenak &copy 2023</p>
+
+   <div id="sun"></div>
+   <div id="sunBeams">
+      <div id="sunBeam-1" class="sunBeam"></div>
+      <div id="sunBeam_0" class="sunBeam"></div>
+      <div id="sunBeam_1" class="sunBeam"></div>
+      <div id="sunBeam_2" class="sunBeam"></div>
+      <div id="sunBeam_3" class="sunBeam"></div>
+      <div id="sunBeam_4" class="sunBeam"></div>
+      <div id="sunBeam_5" class="sunBeam"></div>
+      <div id="sunBeam_6" class="sunBeam"></div>
+      <div id="sunBeam_7" class="sunBeam"></div>
+      <div id="sunBeam_8" class="sunBeam"></div>
+      <div id="sunBeam_9" class="sunBeam"></div>
+      <div id="sunBeam_10" class="sunBeam"></div>
+      <div id="sunBeam_11" class="sunBeam"></div>
+      <div id="sunBeam_12" class="sunBeam"></div>
+   </div>
+   <img id="horizon" src="./images/horizon.png" alt="A horizon line of a high ridge with trees">
+</body>
+</html>
