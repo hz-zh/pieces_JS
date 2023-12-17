@@ -24,8 +24,8 @@ body {
 }
 
 #next-img {
-   width: 50px;
-   height: 50px;
+   width: 70px;
+   height: 70px;
    margin: 0;
    padding: 0;
 }
@@ -34,7 +34,7 @@ body {
    width: 450px;
    text-align: center;
    height: fit-content;
-  position: absolute;
+   position: absolute;
    top: 50%;
    left: 50%;
    margin-left: -225px;
@@ -72,7 +72,6 @@ body {
    position: absolute;
    top: 50%;
    left: 50%;
-
  }
 
 #frame {
@@ -144,6 +143,7 @@ switch2:active {
    justify-content: center;
    align-items: center;
    z-index: 0;
+   font-size: 16px;
 }
 
 #on-off-2 {
@@ -161,17 +161,16 @@ switch2:active {
    justify-content: center;
    align-items: center;
    z-index: 0;
+   font-size: 16px;
 }
 
-
-
 body p {
-  color: rgb(244, 244, 223);
- 
+   color: rgb(244, 244, 223);
    width: 25px;
    height: 25px;
    padding: 8px 14px 19px 16.5px;
    cursor: grab;
+   font-size: 50px;
 }
 
 #spinner1 {
@@ -179,7 +178,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -192,7 +190,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -205,7 +202,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -218,7 +214,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -231,7 +226,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -244,7 +238,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -257,7 +250,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -270,7 +262,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -283,7 +274,6 @@ body p {
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -291,18 +281,57 @@ body p {
    display: none;
 }
 
-
 #spinner10 {
    position: absolute;
    top: 50%;
    left: 50%;
    z-index: 5;
-   font-size: 50px;
    display: flex;
    justify-content: center;
    align-items: center;
    margin: 0; 
    display: none;
+}
+
+@media (min-width: 1500px) and (min-height: 1000px) {
+   #next-img {
+      width: 110px;
+      height: 110px;
+   }
+
+   #lightswitch-container {
+      height: 200px;
+      width: 140px;
+   }
+
+   #lightswitch-container-2 {
+      height: 200px;
+      width: 140px;
+   }
+
+   #followElement {
+      width: 210px;
+      height: 210px;
+   }
+
+   #on-off {
+      font-size: 200%;
+   }
+
+   #on-off-2 {
+      font-size: 200%;
+   }
+
+   #countdown {
+      font-size: 200%;
+      width: 550px;
+      margin-left: -275px;
+   }
+
+   body p {
+      font-size: 60px;
+   }
+
 }
 
 

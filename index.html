@@ -44,11 +44,9 @@
       var onSwitch1 = false;
       var onSwitch2 = false;
       var next = document.getElementById("next");
-
-
       var countdownElement = document.getElementById("countdown");
-      var totalSeconds =  20;
 
+      var totalSeconds =  20;
       var countdownInterval = setInterval(function () {
          var minutes = Math.floor(totalSeconds / 60);
          var seconds = totalSeconds % 60;
@@ -172,8 +170,8 @@
   
         document.addEventListener("mousemove", function (event) {
           // Update the position of the element to follow the cursor and center it
-           followElement.style.left = event.pageX - 70 + "px";
-           followElement.style.top = event.pageY - 70 + "px";
+           followElement.style.left = event.pageX - followElement.offsetWidth/2 + "px";
+           followElement.style.top = event.pageY - followElement.offsetHeight/2 + "px";
         });
       });
     </script>
