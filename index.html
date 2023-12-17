@@ -6,9 +6,11 @@
   <link rel="stylesheet" href="home_styles.css" />
    <!-- get the rubik font via google scholar-->
    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+   <title>Switches+Spinners</title>
 </head>
 <body>
    <a id="next" href="catch-item.html"><img id="next-img" src="./images/next.png"></a>
+   <p id="copyright">Henry Zelenak &copy 2023</p>
    <div id="countdown"></div>
    <div id="followElement"></div>
    <div id="lightswitch-container">
@@ -21,16 +23,16 @@
       <button id="switch-2"></button>
       <p id="on-off-2">off</p>
    </div>
-   <p id="spinner1">*</p>
-   <p id="spinner2">*</p>
-   <p id="spinner3">*</p>
-   <p id="spinner4">*</p>
-   <p id="spinner5">*</p>
-   <p id="spinner6">*</p>
-   <p id="spinner7">*</p>
-   <p id="spinner8">*</p>
-   <p id="spinner9">*</p>
-   <p id="spinner10">*</p>
+   <p id="spinner1" class="spinner">*</p>
+   <p id="spinner2" class="spinner">*</p>
+   <p id="spinner3" class="spinner">*</p>
+   <p id="spinner4" class="spinner">*</p>
+   <p id="spinner5" class="spinner">*</p>
+   <p id="spinner6" class="spinner">*</p>
+   <p id="spinner7" class="spinner">*</p>
+   <p id="spinner8" class="spinner">*</p>
+   <p id="spinner9" class="spinner">*</p>
+   <p id="spinner10" class="spinner">*</p>
    <img id="cursor"></img>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
@@ -110,7 +112,7 @@
             // set the background color to white
             document.body.style.backgroundColor = "rgb(244, 244, 223)";
             // reveal the stars
-            var stars = document.querySelectorAll("p");
+            var stars = document.querySelectorAll(".spinner");
             stars.forEach(function (star) {
                star.style.display = "block";
             });
