@@ -30,6 +30,22 @@ body {
    padding: 0;
 }
 
+#copyright {
+   position: absolute;
+   bottom: 0%;
+   right: 0%;
+   margin: 15px;
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 1.0em;
+   font-family: 'Rubik', sans-serif;
+   font-weight: 300;
+   z-index: 15;
+   padding: 0;
+   width: fit-content;
+   height: auto;
+}
+
+
 #countdown {
    width: 450px;
    text-align: center;
