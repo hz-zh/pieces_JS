@@ -278,18 +278,19 @@
 
 <script>
    class Ball {
-   constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size, background="null") {
-      this.gameContainer = gameContainer;
-      this.ballElement = ballElement;
-      this.ballSpeedX = ballSpeedX;
-      this.ballSpeedY = ballSpeedY;
-      this.size = size; // px
-      this.background = background;
-      this.interval = null;
-      this.gameActive = false;
-      this.resetGame();
-      this.navButtons = document.querySelectorAll("nav button");
-   }
+      constructor(gameContainer, ballElement, ballSpeedX, ballSpeedY, size, background="null") {
+         this.gameContainer = gameContainer;
+         this.ballElement = ballElement;
+         this.ballSpeedX = ballSpeedX;
+         this.ballSpeedY = ballSpeedY;
+         this.size = size; // px
+         this.background = background;
+         this.interval = null;
+         this.gameActive = false;
+         this.resetGame();
+         this.navButtons = document.querySelectorAll("nav button");
+      }
+      
       setSize() {
          this.ballElement.style.height = this.size + "px";
          this.ballElement.style.width = this.size + "px";
